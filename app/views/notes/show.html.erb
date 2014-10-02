@@ -1,0 +1,24 @@
+<h1>Note on <%= @note.track %></h1>
+<h2>by <%= @note.user %></h2>
+
+<%= @note.body %>
+<br>
+
+<% if @note.user_id == current_user.id %>
+  <form
+    method="post"
+    action="<%= track_note_url(id: @note.id, track_id: @note.track_id) %>">
+    <input
+      name="_method"
+      value="delete"
+      type="hidden">
+    <input
+       name="authenticity_token"
+       type="hidden"
+       value="<%= form_authenticity_token %>">
+    <input value="Delete Note" type="submit">
+  </form>
+
+  <a href="<%= edit_track_note_url(@note.track_id, @note.id) %>">Edit</a>
+<% end %>
+  <a href="<%= track_url(@note.track) %>">Back to <%= @note.track %></a>

@@ -11,15 +11,13 @@
   <% end %>
 
   <% if band.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(track.errors.count, "error") %> prohibited this band from being saved:</h2>
+    <h2><%= pluralize(track.errors.count, "error") %> prohibited this band from being saved:</h2>
 
-      <ul>
-      <% band.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+    <ul>
+    <% band.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
   <% end %>
 
   <label for="name">Name</label>

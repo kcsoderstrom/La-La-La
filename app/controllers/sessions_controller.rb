@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     @user = User.find_by_email(params[:user][:email])
     if @user && @user.is_password?(params[:user][:password])
       login_user!(@user)
-      redirect_to bands_url
+      redirect_to tracks_url
     else
       @user = User.new
       @user.email = params[:user][:email]
@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
     flash[:message] = "Goodbye"
     current_user.reset_session_token!
     session[:session_token] = nil
-    redirect_to bands_url
+    redirect_to new_session_url
   end
 
   private

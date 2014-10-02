@@ -9,6 +9,7 @@
 </head>
 <body>
   <% if logged_in? %>
+    Welcome! You are signed in as <%= current_user.email %>.
     <form
       method="post"
       action="<%= session_url %>">

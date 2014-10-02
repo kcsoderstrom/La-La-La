@@ -5,6 +5,8 @@ class Track < ActiveRecord::Base
   has_one :band,
     through: :album
 
+  has_many :notes
+
   def to_s
     self.title
   end

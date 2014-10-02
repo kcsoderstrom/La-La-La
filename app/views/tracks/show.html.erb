@@ -6,16 +6,32 @@
       <strong>Title:</strong>
     </td>
     <td>
-      <strong>Album:</strong>
+      <%= @track.title %>
     </td>
   </tr>
+
   <tr>
     <td>
-      <%= @track.title %>
+      <strong>Album:</strong>
     </td>
     <td>
       <a href="<%= album_url(@track.album) %>"><%= @track.album %></a>
     </td>
+  </tr>
+
+  <tr>
+    <td>
+      <strong>Notes</strong>
+    </td>
+    <td>
+      <% @track.notes.each do |note| %>
+        <a href="<%= track_note_url(note.track.id, note.id) %>"><%= note %></a> by <%= note.user %>
+        <br>
+      <% end %>
+
+      <a href="<%= new_track_note_url(@track) %>">New note</a>
+    </td>
+
   </tr>
 </table>
 
@@ -30,8 +46,8 @@
      name="authenticity_token"
      type="hidden"
      value="<%= form_authenticity_token %>">
-  <input value="Delete Track" type="submit">
+  <input value="Delete <%= @track %>" type="submit">
 </form>
 
-<a href="<%= tracks_url %>">Back</a> <br>
-<a href="<%= edit_track_url(@track) %>">Edit</a>
+<a href="<%= tracks_url %>">Back to all tracks</a> <br>
+<a href="<%= edit_track_url(@track) %>">Edit this track</a>

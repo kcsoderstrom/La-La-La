@@ -43,7 +43,7 @@ class NotesController < ApplicationController
       redirect_to tracks_url
     elsif @note.user_id == current_user.id
       track = @note.track
-      @note.update!(:body = params[:note][:body])
+      @note.update!(body: params[:note][:body])
       redirect_to track_url(track)
     else
       render text: "403 FORBIDDEN"
@@ -56,6 +56,7 @@ class NotesController < ApplicationController
   end
 
   def redirect_non_author
-    redirect_to tracks_url unless current_user.id == @note.id
+    @note = Note.find(params[:id])
+    redirect_to tracks_url unless current_user.id == @note.user_id
   end
 end

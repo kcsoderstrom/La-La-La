@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   helper_method :logged_in?
 
   def redirect_stranger
+    session[:url] = request.original_url
     redirect_to new_session_url if current_user.nil?
   end
 

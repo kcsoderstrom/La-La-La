@@ -6,10 +6,15 @@ class SessionsController < ApplicationController
   end
 
   def create
+    @url = session[:url]
     @user = User.find_by_email(params[:user][:email])
     if @user && @user.is_password?(params[:user][:password])
       login_user!(@user)
-      redirect_to tracks_url
+      if @url
+        redirect_to @url
+      else
+        redirect_to tracks_url
+      end
     else
       @user = User.new
       @user.email = params[:user][:email]

@@ -34,6 +34,13 @@
 
   </tr>
 </table>
+<br>
+
+<% if @track.lyrics %>
+  Lyrics:
+  <br>
+  <%= ugly_lyrics(@track.lyrics) %>
+<% end %>
 
 <form
   method="post"

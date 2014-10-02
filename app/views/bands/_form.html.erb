@@ -24,7 +24,7 @@
   <input type="text" id="name" name="band[name]" value="<%= band.name %>">
   <br>
 
-  <input type="submit" value="Create band">
+  <input type="submit" value="<%= editing ? "Edit" : "Create" %> band">
 </form>
 
-<a href="<%= action_url %>">Back</a>
+<a href="<%= action_url %>">Back to <%= editing ? band : "all bands" %></a>

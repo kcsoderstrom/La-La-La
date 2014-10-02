@@ -20,8 +20,7 @@
       </td>
     <% end %>
     <td>
-      <a href="<%= new_album_url %>">New Album</a>
-<!--any way to make that take the band's id? -->
+      <a href="<%= new_album_url(band_id: @band.id) %>">New Album</a>
     </td>
   </tr>
 </table>
@@ -40,5 +39,5 @@
   <input value="Delete Band" type="submit">
 </form>
 
-<a href="<%= edit_band_url(@band) %>">Edit</a>
-<a href="<%= bands_url %>">Back</a>
+<a href="<%= edit_band_url(@band) %>">Edit <%= @band %></a>
+<a href="<%= bands_url %>">All bands</a>

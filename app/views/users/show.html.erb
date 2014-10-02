@@ -1,14 +1,40 @@
-<p id="notice"><%= notice %></p>
+<h1>Viewing account for <%= @user %></h1>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+<table>
+  <tr>
+    <td>
+      <strong>E-mail address:</strong>
+    </td>
+    <td>
+      <%= @user.email %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Notes:</strong>
+    </td>
 
-<p>
-  <strong>Password digest:</strong>
-  <%= @user.password_digest %>
-</p>
+    <% @user.notes.each do |note| %>
+      <td>
+        <a href="<%= track_note_url(note.track_id, note.id) %>"><%= note %></a>
+      </td>
+    <% end %>
+  </tr>
+</table>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<form
+  method="post"
+  action="<%= user_url(@user) %>">
+  <input
+    name="_method"
+    value="delete"
+    type="hidden">
+  <input
+     name="authenticity_token"
+     type="hidden"
+     value="<%= form_authenticity_token %>">
+  <input value="Delete user account" type="submit">
+</form>
+
+<a href="<%= edit_user_url(@user) %>">Edit <%= @user %></a>
+<a href="<%= users_url %>">All users</a>

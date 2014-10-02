@@ -1,25 +1,50 @@
-<%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<% editing = user.persisted? %>
+<% action_url = editing ? user_url(user) : users_url %>
 
-      <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+<form action="<%= action_url %>" method="post">
+  <input
+     name="authenticity_token"
+     type="hidden"
+     value="<%= form_authenticity_token %>">
+  <% if editing %>
+    <input type="hidden" name="_method" value="put">
   <% end %>
 
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :password_digest %><br>
-    <%= f.text_field :password_digest %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+  <% if user.errors.any? %>
+    <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+    <ul>
+    <% user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  <% end %>
+
+  <label for="email">Email</label>
+  <input type="text" id="email" name="user[email]" value="<%= user.email %>">
+  <br>
+
+  <% if current_user.id == user.id %>
+    <label for="password">New Password</label>
+    <input type="password" id="password" name="user[password]">
+  <% end %>
+
+  <% if current_user.admin %>
+    <form
+      method="post"
+      action="<%= user_url(@user) %>">
+      <input
+        name="_method"
+        value="delete"
+        type="hidden">
+      <input
+         name="authenticity_token"
+         type="hidden"
+         value="<%= form_authenticity_token %>">
+      <input value="Delete <%= @user %> account" type="submit">
+    </form>
+  <% end %>
+  <input type="submit" value="<%= editing ? "Edit account" : "Sign up" %>">
+</form>
+
+<a href="<%= action_url %>">Back to <%= editing ? "account page" : "all accounts" %></a>

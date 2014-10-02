@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+
+  has_many :notes
+
   include BCrypt
   after_initialize :ensure_session_token
 

@@ -11,7 +11,7 @@
   <% end %>
 
   <% if band.errors.any? %>
-    <h2><%= pluralize(track.errors.count, "error") %> prohibited this band from being saved:</h2>
+    <h2><%= pluralize(band.errors.count, "error") %> prohibited this band from being saved:</h2>
 
     <ul>
     <% band.errors.full_messages.each do |message| %>

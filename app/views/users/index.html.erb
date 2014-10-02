@@ -1,27 +1,32 @@
-<h1>Listing users</h1>
+<h1>All users</h1>
 
 <table>
-  <thead>
-    <tr>
-      <th>Email</th>
-      <th>Password digest</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+  <tr>
+    <th>Admins</th>
+  </tr>
     <% @users.each do |user| %>
-      <tr>
-        <td><%= user.email %></td>
-        <td><%= user.password_digest %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <% if user.admin %>
+        <tr>
+          <td>
+            <a href="<%= user_url(user) %>"><%= user %></a>
+          </td>
+        </tr>
+      <% end %>
     <% end %>
-  </tbody>
+  </tr>
+
+  <tr>
+    <th>Other</th>
+    <% @users.each do |user| %>
+      <% unless user.admin %>
+        <tr>
+          <td>
+            <a href="<%= user_url(user) %>"><%= user %></a>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tr>
+
 </table>
-
 <br>
-
-<%= link_to 'New User', new_user_path %>

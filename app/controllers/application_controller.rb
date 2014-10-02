@@ -3,11 +3,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :logged_in?
 
-  def redirect_current_user!
-    redirect_to cats_url if current_user
-  end
-
-  def require_current_user!
+  def redirect_stranger
     redirect_to new_session_url if current_user.nil?
   end
 
@@ -19,7 +15,6 @@ class ApplicationController < ActionController::Base
   def login_user!(user)
     user.reset_session_token!
     session[:session_token] = user.session_token
-    redirect_to cats_url
   end
 
   def logged_in?

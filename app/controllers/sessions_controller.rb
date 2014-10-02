@@ -6,22 +6,22 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by_credentials(*user_params.values)
-    if @user
-      #redirect_to user_url(@user)
-      login_user!(user)
+    @user = User.find_by_email(params[:user][:email])
+    if @user && @user.is_password?(params[:user][:password])
+      login_user!(@user)
+      redirect_to bands_url
     else
       @user = User.new
-      @user.user_name = user_params[:user_name]
+      @user.email = params[:user][:email]
       render :new
     end
   end
 
   def destroy
-    flash[:message] = "Goodbye #{current_user.user_name}, :("
+    flash[:message] = "Goodbye"
     current_user.reset_session_token!
     session[:session_token] = nil
-    redirect_to cats_url
+    redirect_to bands_url
   end
 
   private

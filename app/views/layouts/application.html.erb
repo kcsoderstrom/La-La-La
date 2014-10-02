@@ -8,7 +8,21 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <% unless logged_in? %>
+  <% if logged_in? %>
+    <form
+      method="post"
+      action="<%= session_url %>">
+      <input
+         name="authenticity_token"
+         type="hidden"
+         value="<%= form_authenticity_token %>">
+       <input
+         name="_method"
+         value="delete"
+         type="hidden">
+        <input value="Sign out" type="submit">
+    </form>
+  <% else %>
     <table>
       <tr>
         <td>

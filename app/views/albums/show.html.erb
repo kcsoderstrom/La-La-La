@@ -21,6 +21,15 @@
 
   <tr>
     <td>
+      <strong>Release Year:</strong>
+    </td>
+    <td>
+      <%= @album.release_year %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
       <strong>Tracks:</strong>
     </td>
 
@@ -30,8 +39,7 @@
       </td>
     <% end %>
     <td>
-      <a href="<%= new_track_url %>">New Track</a>
-<!--any way to make that take the album's id? -->
+      <a href="<%= new_track_url(track: {album_id: @album.id}) %>">New Track</a>
     </td>
   </tr>
 </table>

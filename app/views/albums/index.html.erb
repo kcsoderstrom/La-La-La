@@ -1,29 +1,46 @@
-<h1>Listing albums</h1>
+<h1>All albums</h1>
 
 <table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Release date</th>
-      <th>Band</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <tr>
+    <td>
+      <strong>Title</strong>
+    </td>
 
-  <tbody>
     <% @albums.each do |album| %>
-      <tr>
-        <td><%= album.title %></td>
-        <td><%= album.release_date %></td>
-        <td><%= album.band %></td>
-        <td><%= link_to 'Show', album %></td>
-        <td><%= link_to 'Edit', edit_album_path(album) %></td>
-        <td><%= link_to 'Destroy', album, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <td>
+        <a href="<%= album_url(album) %>"><%= album %></a>
+      </td>
     <% end %>
-  </tbody>
+
+  </tr>
+
+  <tr>
+    <td>
+      <strong>Release Year</strong>
+    </td>
+
+    <% @albums.each do |album| %>
+      <td>
+        <%= album.release_year %>
+      </td>
+    <% end %>
+
+  </tr>
+
+  <tr>
+    <td>
+      <strong>Artist</strong>
+    </td>
+
+    <% @albums.each do |album| %>
+      <td>
+        <a href="<%= band_url(album.band) %>"><%= album.band %></a>
+      </td>
+    <% end %>
+
+  </tr>
 </table>
 
 <br>
 
-<%= link_to 'New Album', new_album_path %>
+<a href="<%= new_album_url %>">New Album</a>

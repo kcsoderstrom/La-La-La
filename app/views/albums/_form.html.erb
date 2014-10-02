@@ -11,15 +11,13 @@
   <% end %>
 
   <% if album.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(album.errors.count, "error") %> prohibited this album from being saved:</h2>
+    <h2><%= pluralize(album.errors.count, "error") %> prohibited this album from being saved:</h2>
 
-      <ul>
-      <% album.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+    <ul>
+    <% album.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
   <% end %>
 
   <label for="title">Title</label>
@@ -39,6 +37,13 @@
   <br>
   <br>
 
+  <label for="release_year">Release Year</label>
+  <input
+    type="number"
+    id="release_year"
+    name="album[release_year]"
+    value=<%= album.release_year %>>
+
   <table>
     <tr>
       <td>
@@ -47,7 +52,7 @@
           type="radio"
           id="studio"
           name="album[live]"
-          value="false" <%= 'checked' if album.live == false %>>
+          value="false" <%= 'checked' if editing && album.live == false %>>
       </td>
     </tr>
     <tr>
@@ -57,13 +62,13 @@
           type="radio"
           id="live"
           name="album[live]"
-          value="true" <%= 'checked' if album.live == true %>>
+          value="true" <%= 'checked' if editing && album.live == true %>>
       </td>
     </tr>
   </table>
   <br>
 
-  <input type="submit" value="Create album">
+  <input type="submit" value="<%= editing ? "Edit" : "Create" %> album">
 </form>
 
-<a href="<%= action_url %>">Back</a>
+<a href="<%= action_url %>">Back to <%= editing ? album : "all albums" %></a>

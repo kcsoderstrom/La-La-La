@@ -13,7 +13,7 @@ class TracksController < ApplicationController
   end
 
   def new
-    @track = Track.new
+    @track = Track.new(track_params)
     render :new
   end
 

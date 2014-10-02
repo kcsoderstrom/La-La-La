@@ -37,6 +37,19 @@ class NotesController < ApplicationController
     end
   end
 
+  def edit
+    @note = Note.find(params[:id])
+    if @note.nil?
+      redirect_to tracks_url
+    elsif @note.user_id == current_user.id
+      track = @note.track
+      @note.update!(:body = params[:note][:body])
+      redirect_to track_url(track)
+    else
+      render text: "403 FORBIDDEN"
+    end
+  end
+
   private
   def note_params
     params.require(:note).permit(:body)

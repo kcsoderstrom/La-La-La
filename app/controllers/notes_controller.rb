@@ -39,6 +39,11 @@ class NotesController < ApplicationController
 
   def edit
     @note = Note.find(params[:id])
+    render :edit
+  end
+
+  def update
+    @note = Note.find(params[:id])
     if @note.nil?
       redirect_to tracks_url
     elsif @note.user_id == current_user.id

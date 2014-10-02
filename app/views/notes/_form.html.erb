@@ -1,5 +1,5 @@
 <% editing = note.persisted? %>
-<% action_url = editing ? track_note_url(note) : track_notes_url(track) %>
+<% action_url = editing ? track_note_url(note_id: note.id, track_id: track.id) : track_notes_url(track) %>
 
 <form action="<%= action_url %>" method="post">
   <input
@@ -8,6 +8,16 @@
      value="<%= form_authenticity_token %>">
   <% if editing %>
     <input type="hidden" name="_method" value="patch">
+  <% end %>
+
+  <% if note.errors.any? %>
+    <h2><%= pluralize(note.errors.count, "error") %> prohibited this note from being saved:</h2>
+
+    <ul>
+    <% note.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
   <% end %>
 
   <label for="body">New note</label>

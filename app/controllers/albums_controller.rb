@@ -15,6 +15,7 @@ class AlbumsController < ApplicationController
   # GET /albums/new
   def new
     @album = Album.new
+    render :new
   end
 
   # GET /albums/1/edit
@@ -25,15 +26,11 @@ class AlbumsController < ApplicationController
   # POST /albums.json
   def create
     @album = Album.new(album_params)
-
-    respond_to do |format|
-      if @album.save
-        format.html { redirect_to @album, notice: 'Album was successfully created.' }
-        format.json { render :show, status: :created, location: @album }
-      else
-        format.html { render :new }
-        format.json { render json: @album.errors, status: :unprocessable_entity }
-      end
+    if @album.save
+      redirect_to album_url(@album)
+    else
+      flash.now[:errors] = @album.errors.full_messages
+      render :new
     end
   end
 
@@ -55,10 +52,7 @@ class AlbumsController < ApplicationController
   # DELETE /albums/1.json
   def destroy
     @album.destroy
-    respond_to do |format|
-      format.html { redirect_to albums_url, notice: 'Album was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to albums_url
   end
 
   private

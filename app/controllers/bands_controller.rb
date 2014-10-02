@@ -55,11 +55,9 @@ class BandsController < ApplicationController
   # DELETE /bands/1.json
   def destroy
     @band.destroy
-    respond_to do |format|
-      format.html { redirect_to bands_url, notice: 'Band was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to bands_url
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

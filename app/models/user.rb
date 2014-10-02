@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
+  include BCrypt
+  after_initialize :ensure_session_token
 
-  def generate_session_token
+  def self.generate_session_token
     SecureRandom.hex(16)
   end
 
@@ -12,6 +14,10 @@ class User < ActiveRecord::Base
 
   def password=(password)
     self.password_digest = Password.create(password)
+  end
+
+  def is_password?(password)
+    Password.new(password_digest).is_password?(password)
   end
 
   private

@@ -19,6 +19,8 @@ class TracksController < ApplicationController
 
   # GET /tracks/1/edit
   def edit
+    @track = Track.find(params[:id])
+    render :edit
   end
 
   # POST /tracks
@@ -55,10 +57,7 @@ class TracksController < ApplicationController
   # DELETE /tracks/1.json
   def destroy
     @track.destroy
-    respond_to do |format|
-      format.html { redirect_to tracks_url, notice: 'Track was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to tracks_url
   end
 
   private

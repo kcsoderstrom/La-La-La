@@ -1,25 +1,46 @@
-<%= form_for(@track) do |f| %>
-  <% if @track.errors.any? %>
+<% editing = track.persisted? %>
+<% action_url = editing ? track_url(track) : tracks_url %>
+
+<form action="<%= action_url %>" method="post">
+  <input
+     name="authenticity_token"
+     type="hidden"
+     value="<%= form_authenticity_token %>">
+  <% if editing %>
+    <input type="hidden" name="_method" value="put">
+  <% end %>
+
+  <% if track.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@track.errors.count, "error") %> prohibited this track from being saved:</h2>
+      <h2><%= pluralize(track.errors.count, "error") %> prohibited this track from being saved:</h2>
 
       <ul>
-      <% @track.errors.full_messages.each do |message| %>
+      <% track.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :album_id %><br>
-    <%= f.text_field :album_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+  <label for="title">Title</label>
+  <input type="text" id="title" name="track[title]" value="<%= track.title %>">
+  <br>
+
+  <label for="album">Album</label>
+  <select id="album" name="track[album_id]">
+    <option <%= 'selected' unless track.album %>>Select a album</option>
+
+    <% Album.all.each do |album| %>
+    <option value="<%= album.id %>" <%= 'selected' if track.album == album %>>
+      <%= album.to_s.capitalize %>
+    </option>
+    <% end %>
+  </select>
+  <br>
+  <br>
+  <br>
+
+  <input type="submit" value="Create track">
+</form>
+
+<a href="<%= action_url %>">Back</a>

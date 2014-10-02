@@ -1,9 +1,44 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @band.name %>
-</p>
+<table>
+  <tr>
+    <td>
+      <strong>Name:</strong>
+    </td>
+    <td>
+      <%= @band.name %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Albums:</strong>
+    </td>
 
-<%= link_to 'Edit', edit_band_path(@band) %> |
-<%= link_to 'Back', bands_path %>
+    <% @band.albums.each do |album| %>
+      <td>
+        <a href="<%= album_url(album) %>"><%= album %></a>
+      </td>
+    <% end %>
+    <td>
+      <a href="<%= new_album_url %>">New Album</a>
+<!--any way to make that take the band's id? -->
+    </td>
+  </tr>
+</table>
+
+<form
+  method="post"
+  action="<%= band_url(@band) %>">
+  <input
+    name="_method"
+    value="delete"
+    type="hidden">
+  <input
+     name="authenticity_token"
+     type="hidden"
+     value="<%= form_authenticity_token %>">
+  <input value="Delete Band" type="submit">
+</form>
+
+<a href="<%= edit_band_url(@band) %>">Edit</a>
+<a href="<%= bands_url %>">Back</a>

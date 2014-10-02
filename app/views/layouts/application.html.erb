@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lalala</title>
+  <%= stylesheet_link_tag 'application',
+        media: 'all',
+        'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <% unless logged_in? %>
+    <table>
+      <tr>
+        <td>
+          <form
+            method="post"
+            action="<%= new_user_url %>">
+            <input
+               name="authenticity_token"
+               type="hidden"
+               value="<%= form_authenticity_token %>">
+             <input
+               name="_method"
+               value="get"
+               type="hidden">
+              <input value="Sign up" type="submit">
+          </form>
+        </td>
+        <td>or</td>
+        <td>
+          <form
+            method="post"
+            action="<%= new_session_url %>">
+            <input
+              name="_method"
+              value="get"
+              type="hidden">
+            <input
+               name="authenticity_token"
+               type="hidden"
+               value="<%= form_authenticity_token %>">
+            <input value="log in" type="submit">
+          </form>
+        </td>
+      </tr>
+    </table>
+  <% end %>
+
+<%= yield %>
+
+</body>
+</html>

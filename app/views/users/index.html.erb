@@ -22,6 +22,21 @@
         <tr>
           <td>
             <a href="<%= user_url(user) %>"><%= user %></a>
+
+            <form
+              method="post"
+              action="<%= user_adminize_url(user) %>">
+              <input
+                name="_method"
+                value="patch"
+                type="hidden">
+              <input
+                 name="authenticity_token"
+                 type="hidden"
+                 value="<%= form_authenticity_token %>">
+              <input value="Make admin" type="submit">
+            </form>
+
           </td>
         </tr>
       <% end %>

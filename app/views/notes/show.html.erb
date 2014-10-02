@@ -4,7 +4,7 @@
 <%= @note.body %>
 <br>
 
-<% if @note.user_id == current_user.id %>
+<% if @note.user_id == current_user.id || current_user.admin %>
   <form
     method="post"
     action="<%= track_note_url(id: @note.id, track_id: @note.track_id) %>">

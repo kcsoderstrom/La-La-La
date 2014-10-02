@@ -31,7 +31,7 @@ class AlbumsController < ApplicationController
 
   def update
     set_album
-    if @album.save
+    if @album.update(album_params)
       redirect_to album_url(@album)
     else
       flash.now[:errors] = @album.errors.full_messages

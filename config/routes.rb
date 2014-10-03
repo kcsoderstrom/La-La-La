@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root to: "tracks#index"
+
   resources :tracks do
     resources :notes, only: [:create, :destroy, :new, :edit, :update, :show]
   end

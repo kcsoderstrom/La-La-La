@@ -13,7 +13,11 @@ class TracksController < ApplicationController
   end
 
   def new
-    @track = Track.new(track_params)
+    if params[:track]
+      @track = Track.new(track_params)
+    else
+      @track = Track.new
+    end
     render :new
   end
 

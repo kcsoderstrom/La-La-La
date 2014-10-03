@@ -51,6 +51,8 @@ class UsersController < ApplicationController
     if permissions?
       @user.destroy
       redirect_to users_url
+    else
+      render text: "403 FORBIDDEN"
     end
   end
 
@@ -59,6 +61,8 @@ class UsersController < ApplicationController
       @user = User.find(params[:user_id])
       @user.update!(admin: true)
       redirect_to users_url
+    else
+      render text: "403 FORBIDDEN"
     end
   end
 

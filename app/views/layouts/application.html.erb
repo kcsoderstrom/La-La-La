@@ -8,6 +8,12 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+<%= yield %>
+<br>
+<br>
+
+<div class="footer">
   <% if logged_in? %>
     Welcome! You are signed in as <%= current_user.email %>.
     <form
@@ -60,8 +66,7 @@
       </tr>
     </table>
   <% end %>
-
-<%= yield %>
+</div>
 
 </body>
 </html>
